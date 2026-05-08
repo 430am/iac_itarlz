@@ -102,6 +102,18 @@ baselines out one subscription at a time.
 Region lists, tag keys, and feature flags are all overridable in your
 `*.tfvars` — see [environments/example.tfvars](environments/example.tfvars).
 
+## Centralised diagnostics
+
+When `deploy_management = true` and a `management` subscription is supplied,
+the configuration also enables a subscription-scoped diagnostic setting on
+**every** managed subscription (platform + ITAR + non-ITAR landing zones)
+that ships all Activity Log categories — Administrative, Security,
+ServiceHealth, Alert, Recommendation, Policy, Autoscale, ResourceHealth — to
+the central Log Analytics workspace in the management subscription.
+
+The deploying service principal needs `Monitoring Contributor` on each
+target subscription for these settings to apply.
+
 ## Security notes
 
 - `environments/creds.tfvars` is git-ignored (`*.tfvars` blanket rule). Never

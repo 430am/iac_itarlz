@@ -86,3 +86,29 @@ module "platform_connectivity" {
   location = var.primary_location
   tags     = local.tags
 }
+
+################################################################################
+# Subscription Activity Log -> central Log Analytics workspace
+#
+# Requires the management subscription (and its workspace) to be deployed.
+# Iterates over every managed subscription \u2014 platform + landing zones \u2014 and
+# enables a diagnostic setting that ships every Activity Log category to the
+# central workspace.
+################################################################################
+
+module "activity_log_diagnostics" {
+  source = "./modules/activity-log-diagnostics"
+  count  = var.deploy_management && var.subscriptions.management != null ? 1 : 0
+
+  log_analytics_workspace_id = module.platform_management[0].log_analytics_workspace_id
+
+  subscription_ids = concat(
+    compact([
+      var.subscriptions.identity,
+      var.subscriptions.management,
+      var.subscriptions.connectivity,
+    ]),
+    var.subscriptions.itar,
+    var.subscriptions.non_itar,
+  )
+}
