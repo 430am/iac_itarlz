@@ -17,10 +17,10 @@ nothing more until you ask for it.
 ```
 tenant root
 └── <prefix>-root
-    ├── platform                          ── contains the platform subscriptions:
-    │                                          • identity      (Managed HSM, …)
-    │                                          • management    (Log Analytics, Sentinel, Defender, …)
-    │                                          • connectivity  (hub VNet, Firewall, DNS, Bastion)
+    ├── platform          ── contains the platform subscriptions:
+    │                        • identity      (Managed HSM, …)
+    │                        • management    (Log Analytics, Sentinel, Defender, …)
+    │                        • connectivity  (hub VNet, Firewall, DNS, Bastion)
     └── landingzones
         ├── itar          ── ITAR workload subscriptions
         │                    • US commercial allowed locations
